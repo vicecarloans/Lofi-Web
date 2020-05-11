@@ -6,7 +6,6 @@ const withSass = require("@zeit/next-sass");
 const withLess = require("@zeit/next-less");
 
 const baseConfig = {
-  distDir: "dist",
   publicRuntimeConfig: {
     API_HOST: process.env.API_HOST,
   },
