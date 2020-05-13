@@ -1,4 +1,4 @@
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu, Breadcrumb, Button } from "antd";
 
 const { Header, Content, Footer } = Layout;
 
@@ -18,7 +18,16 @@ const Home = () => (
         <Breadcrumb.Item>List</Breadcrumb.Item>
         <Breadcrumb.Item>App</Breadcrumb.Item>
       </Breadcrumb>
-      <div className="site-layout-content">Content</div>
+      <div className="site-layout-content">
+        <Button
+          type="primary"
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
+          Log In
+        </Button>
+      </div>
     </Content>
     <Footer style={{ textAlign: "center" }}>
       Ant Design ©2018 Created by Ant UED
