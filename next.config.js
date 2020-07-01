@@ -15,9 +15,6 @@ const baseConfig = {
         fs: "empty",
       };
     }
-
-    // Add an alias to clean up relative paths
-    config.resolve.alias["~"] = path.resolve(__dirname, "src/");
     return config;
   },
 };

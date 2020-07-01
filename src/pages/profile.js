@@ -1,15 +1,14 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { AuthContext } from "utils/useAuth";
+import { putData } from "services/base";
+import api from "services/domain";
 
-export default function Profile({ user }) {
-  console.log(user);
+export default function Profile() {
+  const ctx = useContext(AuthContext);
+
   return (
     <div>
-      <p>{JSON.stringify(user)}</p>
+      <p>{JSON.stringify(ctx.user)}</p>
     </div>
   );
 }
-
-Profile.getInitialProps = ({ req }) => {
-  const user = req ? req.userContext.userinfo : {};
-  return { user };
-};
