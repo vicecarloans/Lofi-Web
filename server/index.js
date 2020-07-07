@@ -32,7 +32,7 @@ nextApp.prepare().then(async () => {
       : "http://localhost:3000";
 
   const oidc = new ExpressOIDC({
-    issuer: "https://dev-670772.okta.com/oauth2/default",
+    issuer: "https://auth.huydam.guru/oauth2/default",
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
     appBaseUrl: baseURL,
