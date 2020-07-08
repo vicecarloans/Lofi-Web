@@ -9,7 +9,8 @@ const session = require("express-session");
 const redis = require("redis");
 let RedisStore = require("connect-redis")(session);
 let redisClient = redis.createClient(process.env.REDIS_URL);
-const { ExpressOIDC } = require("@okta/oidc-middleware");
+
+const { ExpressOIDC } = require("./oidc");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV != "production";
@@ -66,6 +67,7 @@ nextApp.prepare().then(async () => {
     if (res.headersSent) {
       return next(err);
     }
+    console.log(err);
     // console.error(err.stack);
     res.status(err.status || 500).json({ error: err });
   });

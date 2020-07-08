@@ -31,7 +31,7 @@ function App({ Component, pageProps }) {
             <AppHeader
               className="site-layout-background"
               style={{ padding: 0 }}
-              username={pageProps.user.name}
+              username={pageProps.user?.name}
             />
             <Component {...pageProps} />
           </ContentLayout>
