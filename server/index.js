@@ -1,6 +1,5 @@
 require("dotenv").config();
 const express = require("express");
-// const proxy = require("express-http-proxy");
 const next = require("next");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -33,13 +32,15 @@ nextApp.prepare().then(async () => {
       : "http://localhost:3000";
 
   const oidc = new ExpressOIDC({
-    issuer: "https://auth.huydam.guru/oauth2/default",
+    issuer: "https://auth.huydam.guru/oauth2/lofi",
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
     appBaseUrl: baseURL,
     scope: "openid profile",
   });
 
+  //Proxy
+  app.enable("trust proxy");
   //Middlewares
   app.use(helmet());
   app.use(cors(CORS_OPTIONS));
@@ -56,7 +57,7 @@ nextApp.prepare().then(async () => {
   //Handle Static Service-Worker.js
   app.use(
     "/service-worker.js",
-    express.static(path.join(__dirname, "dist/service-worker.js"))
+    express.static(path.join(__dirname, "/.next/service-worker.js"))
   );
 
   //Let Next Handle the rest of routes

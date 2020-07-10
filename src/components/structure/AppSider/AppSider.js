@@ -1,32 +1,68 @@
 import React, { useState } from "react";
-import { Layout, Menu } from "antd";
+import { Menu } from "antd";
+import { UnlockOutlined, LockOutlined } from "@ant-design/icons";
 import SiderMenu from "constants/sider-menu";
-
-const { Sider } = Layout;
+import { AppLogo } from "../AppLogo";
+import { CustomSider } from "./AppSider.styles";
+import { PRIVATE_ZONE } from "constants/app";
+import { useSelector } from "react-redux";
+import { profileSelector } from "flux/user";
+import { useRouter } from "next/router";
 
 const { SubMenu } = Menu;
 
-function renderMenu() {
+function renderMenu(isAuthenticated, navigateToRoute) {
   return SiderMenu.map((sider) => {
+    let icon = sider.icon;
+    if (sider.key === PRIVATE_ZONE) {
+      icon = isAuthenticated ? <UnlockOutlined /> : <LockOutlined />;
+    }
+
     if (!sider.hasMore) {
       return (
-        <Menu.Item key={sider.key} icon={sider.icon}>
+        <Menu.Item
+          onClick={() => navigateToRoute("/profile")}
+          key={sider.key}
+          icon={icon}
+        >
           {sider.name}
         </Menu.Item>
       );
     }
+
+    return (
+      <SubMenu key={sider.key} icon={icon} title={sider.name}>
+        {sider.subMenus.map((subMenu) => (
+          <Menu.Item key={subMenu.key} icon={subMenu.icon}>
+            {subMenu.name}
+          </Menu.Item>
+        ))}
+      </SubMenu>
+    );
   });
 }
 
 export default function AppSider() {
   const [collapsed, setCollapsed] = useState(false);
+  const profile = useSelector(profileSelector);
+  const router = useRouter();
+
+  function navigateToRoute(route) {
+    router.push(route);
+  }
 
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={setCollapsed}>
-      <div className="logo"></div>
-      <Menu theme="dark" defaultSelectedKeys={["Desktop"]} mode="inline">
-        {renderMenu()}
+    <CustomSider
+      breakpoint="lg"
+      collapsedWidth="80"
+      collapsible
+      collapsed={collapsed}
+      onCollapse={setCollapsed}
+    >
+      <AppLogo />
+      <Menu theme="dark" defaultSelectedKeys={["Popular Tracks"]} mode="inline">
+        {renderMenu(!!profile.name, navigateToRoute)}
       </Menu>
-    </Sider>
+    </CustomSider>
   );
 }

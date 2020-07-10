@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "^12.8.0",
+    "node": ">=12.0.0",
     "yarn": "^1.19.1"
   },
   "main": "./server",
   "scripts": {
-    "dev": "NODE_TLS_REJECT_UNAUTHORIZED=0 nodemon -w package.json -w yarn.lock -w server -w next.config.js -w .env",
+    "dev": "nodemon -w package.json -w yarn.lock -w server -w next.config.js -w .env",
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server",
-    "heroku-postbuild": "yarn run build"
+    "gcp-build": "yarn build",
+    "svgr": "svgr -d src/components/svg public/svg/"
   },
   "dependencies": {
     "@okta/configuration-validation": "^0.4.3",
@@ -32,9 +33,11 @@
     "negotiator": "^0.6.2",
     "next": "9.3.2",
     "next-compose-plugins": "^2.2.0",
+    "next-images": "^1.4.0",
     "next-offline": "^5.0.2",
     "next-redux-saga": "^4.1.2",
     "next-redux-wrapper": "^6.0.2",
+    "next-svgr": "^0.0.2",
     "node-fetch": "^2.6.0",
     "openid-client": "^3.15.6",
     "passport": "^0.4.1",
@@ -51,6 +54,7 @@
     "uuid": "^8.2.0"
   },
   "devDependencies": {
+    "@svgr/cli": "^5.4.0",
     "babel-plugin-styled-components": "^1.10.7",
     "nodemon": "^2.0.3"
   }

@@ -1,15 +1,13 @@
-import React, { useContext, useEffect } from "react";
-import { AuthContext } from "utils/useAuth";
-import { putData } from "services/base";
-import api from "services/domain";
-import Axios from "axios";
+import React from "react";
+import { profileSelector } from "flux/user";
+import { useSelector } from "react-redux";
 
 export default function Profile() {
-  const ctx = useContext(AuthContext);
+  const profile = useSelector(profileSelector);
 
   return (
     <div>
-      <p>{JSON.stringify(ctx.user)}</p>
+      <p>{JSON.stringify(profile)}</p>
     </div>
   );
 }

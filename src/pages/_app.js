@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Head from "next/head";
 import "../../public/less/dark.less";
 import { assignToken, configureResponse } from "services/base";
-
+import { useDispatch } from "react-redux";
 import withAuth from "utils/withAuth";
-import { AuthContext } from "utils/useAuth";
+
 import { AppHeader } from "components/structure/AppHeader";
 
 import withReduxSaga from "next-redux-saga";
@@ -13,10 +13,20 @@ import { reduxWrapper } from "flux/configureStore";
 import { AppSider } from "components/structure/AppSider";
 import { AppLayout, ContentLayout } from "components/structure/AppLayout";
 
+import { AppContent } from "components/structure/AppContent";
+import { AppFooter } from "components/structure/AppFooter";
+import { propagateUser } from "flux/user";
+
 configureResponse();
 
 function App({ Component, pageProps }) {
   assignToken(pageProps.accessToken);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (pageProps.user.name) {
+      dispatch(propagateUser(pageProps.user));
+    }
+  }, [pageProps]);
 
   return (
     <>
@@ -24,19 +34,19 @@ function App({ Component, pageProps }) {
         <title>Lofi Chillhop</title>
       </Head>
 
-      <AuthContext.Provider value={{ user: pageProps.user }}>
-        <AppLayout>
-          <AppSider />
-          <ContentLayout className="site-layout">
-            <AppHeader
-              className="site-layout-background"
-              style={{ padding: 0 }}
-              username={pageProps.user?.name}
-            />
+      <AppLayout>
+        <AppSider />
+        <ContentLayout className="site-layout">
+          <AppHeader
+            className="site-layout-background"
+            style={{ padding: 0 }}
+          />
+          <AppContent>
             <Component {...pageProps} />
-          </ContentLayout>
-        </AppLayout>
-      </AuthContext.Provider>
+          </AppContent>
+          <AppFooter />
+        </ContentLayout>
+      </AppLayout>
     </>
   );
 }

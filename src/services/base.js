@@ -16,6 +16,7 @@ export function configureResponse() {
 }
 
 export function assignToken(accessToken) {
+  if (!accessToken) return;
   console.log("Assign Access Token");
   Axios.interceptors.request.use(
     function (config) {

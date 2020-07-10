@@ -80,11 +80,10 @@ oidcUtil.createClient = async (context) => {
   // );
   const iss = new Issuer({
     issuer,
-    authorization_endpoint:
-      "https://auth.huydam.guru/oauth2/default/v1/authorize",
-    token_endpoint: "https://auth.huydam.guru/oauth2/default/v1/token",
+    authorization_endpoint: "https://auth.huydam.guru/oauth2/lofi/v1/authorize",
+    token_endpoint: "https://auth.huydam.guru/oauth2/lofi/v1/token",
     registration_endpoint: "https://auth.huydam.guru/oauth2/v1/clients",
-    jwks_uri: "https://auth.huydam.guru/oauth2/default/v1/keys",
+    jwks_uri: "https://auth.huydam.guru/oauth2/lofi/v1/keys",
     response_types_supported: [
       "code",
       "token",
@@ -137,7 +136,7 @@ oidcUtil.createClient = async (context) => {
     ],
     code_challenge_methods_supported: ["S256"],
     introspection_endpoint:
-      "https://auth.huydam.guru/oauth2/default/v1/introspect",
+      "https://auth.huydam.guru/oauth2/lofi/v1/introspect",
     introspection_endpoint_auth_methods_supported: [
       "client_secret_basic",
       "client_secret_post",
@@ -145,7 +144,7 @@ oidcUtil.createClient = async (context) => {
       "private_key_jwt",
       "none",
     ],
-    revocation_endpoint: "https://auth.huydam.guru/oauth2/default/v1/revoke",
+    revocation_endpoint: "https://auth.huydam.guru/oauth2/lofi/v1/revoke",
     revocation_endpoint_auth_methods_supported: [
       "client_secret_basic",
       "client_secret_post",
@@ -153,7 +152,7 @@ oidcUtil.createClient = async (context) => {
       "private_key_jwt",
       "none",
     ],
-    end_session_endpoint: "https://auth.huydam.guru/oauth2/default/v1/logout",
+    end_session_endpoint: "https://auth.huydam.guru/oauth2/lofi/v1/logout",
     request_parameter_supported: true,
     request_object_signing_alg_values_supported: [
       "HS256",
