@@ -21,8 +21,6 @@ jobs:
         # Build and test the project, then
         # deploy to Azure Web App.
         yarn install
-        yarn run build --if-present
-        yarn run test --if-present
     - name: Initialize Google Cloud SDK
       uses: zxyle/publish-gae-action@v2.3
       with:
