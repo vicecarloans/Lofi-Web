@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import "../../public/less/dark.less";
 import { assignToken, configureResponse } from "services/base";
-import { useDispatch } from "react-redux";
-import withAuth from "utils/withAuth";
 
 import { AppHeader } from "components/structure/AppHeader";
 
@@ -15,19 +13,13 @@ import { AppLayout, ContentLayout } from "components/structure/AppLayout";
 
 import { AppContent } from "components/structure/AppContent";
 import { AppFooter } from "components/structure/AppFooter";
-import { propagateUser } from "flux/user";
+import { useAuth } from "utils/useAuth";
 
 configureResponse();
+assignToken();
 
 function App({ Component, pageProps }) {
-  assignToken(pageProps.accessToken);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (pageProps.user.name) {
-      dispatch(propagateUser(pageProps.user));
-    }
-  }, [pageProps]);
-
+  useAuth(pageProps.user);
   return (
     <>
       <Head>
@@ -51,4 +43,13 @@ function App({ Component, pageProps }) {
   );
 }
 
-export default reduxWrapper.withRedux(withReduxSaga(withAuth(App)));
+App.getInitialProps = async ({ ctx }) => {
+  let pageProps = {};
+  const { req } = ctx;
+  const user = req && req.userContext ? req.userContext.userinfo : {};
+
+  pageProps.user = user;
+  return { pageProps };
+};
+
+export default reduxWrapper.withRedux(withReduxSaga(App));

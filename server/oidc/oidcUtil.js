@@ -14,6 +14,7 @@ const passport = require("passport");
 const OpenIdClient = require("openid-client");
 const Negotiator = require("negotiator");
 const os = require("os");
+const { default: next } = require("next");
 
 // const pkg = require("package.json");
 
@@ -187,6 +188,7 @@ oidcUtil.bootstrapPassportStrategy = (context) => {
       },
       sessionKey: context.options.sessionKey,
       client: context.client,
+      usePKCE: true,
     },
     (tokenSet, done) => {
       return tokenSet
@@ -223,6 +225,29 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
 
       next();
     } else {
+      res.sendStatus(401);
+    }
+  };
+};
+
+oidcUtil.performRefreshToken = (context, options = {}) => {
+  return async (req, res, next) => {
+    try {
+      const isAuthenticated = req.isAuthenticated && req.isAuthenticated();
+      const refreshToken =
+        req.userContext.tokens && req.userContext.tokens.refresh_token;
+      if (!isAuthenticated && refreshToken) {
+        const tokenSet = await context.client.refresh(refreshToken);
+        const userinfo = req.userContext.userinfo;
+        req.login({ userinfo, tokens: tokenSet }, (err) => {
+          if (!err) {
+            console.log("Refresh Complete");
+          }
+          return next();
+        });
+      }
+      return next();
+    } catch (err) {
       res.sendStatus(401);
     }
   };

@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { profileSelector } from "flux/user";
 import { useSelector } from "react-redux";
+import ensureAuth from "utils/ensureAuth";
+import { useAuth } from "utils/useAuth";
+import api from "services/domain";
+import Axios from "axios";
 
-export default function Profile() {
+function Profile({ user }) {
+  useAuth(user);
+
   const profile = useSelector(profileSelector);
 
   return (
@@ -11,3 +17,7 @@ export default function Profile() {
     </div>
   );
 }
+
+export const getServerSideProps = ensureAuth();
+
+export default Profile;

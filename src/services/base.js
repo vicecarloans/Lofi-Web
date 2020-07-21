@@ -15,14 +15,13 @@ export function configureResponse() {
   );
 }
 
-export function assignToken(accessToken) {
-  if (!accessToken) return;
-  console.log("Assign Access Token");
+export function assignToken() {
+  console.log("Configure Access Token");
   Axios.interceptors.request.use(
-    function (config) {
-      if (accessToken) {
-        config.headers["Authorization"] = `Bearer ${accessToken}`;
-      }
+    async function (config) {
+      const data = await fetch("/api/refresh");
+      const { access_token } = await data.json();
+      config.headers["Authorization"] = `Bearer ${access_token}`;
       return config;
     },
     function (error) {

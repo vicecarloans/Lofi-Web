@@ -146,6 +146,15 @@ module.exports = class ExpressOIDC extends EventEmitter {
      */
     this.forceLogoutAndRevoke = logout.forceLogoutAndRevoke.bind(null, context);
 
+    /**
+     * Performs Token Refresh
+     *
+     * @instance
+     * @function
+     * @memberof ExpressOIDC
+     */
+    this.performRefreshToken = oidcUtil.performRefreshToken.bind(null, context);
+
     // create client
     oidcUtil
       .createClient(context)

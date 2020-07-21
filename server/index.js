@@ -36,7 +36,7 @@ nextApp.prepare().then(async () => {
     client_id: process.env.CLIENT_ID,
     client_secret: process.env.CLIENT_SECRET,
     appBaseUrl: baseURL,
-    scope: "openid profile",
+    scope: "openid profile offline_access",
   });
 
   //Proxy
@@ -62,6 +62,13 @@ nextApp.prepare().then(async () => {
 
   //Let Next Handle the rest of routes
   app.get("/profile", oidc.ensureAuthenticated(), nextAppRequestHandler);
+
+  app.get("/api/refresh", oidc.performRefreshToken(), (req, res) => {
+    console.log(req.userContext);
+    if (req.userContext) {
+      return res.json({ access_token: req.userContext.tokens.access_token });
+    }
+  });
   app.all("*", nextAppRequestHandler);
 
   app.use((err, req, res, next) => {
