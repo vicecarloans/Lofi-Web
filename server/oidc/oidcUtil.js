@@ -235,7 +235,7 @@ oidcUtil.performRefreshToken = (context, options = {}) => {
     try {
       const isAuthenticated = req.isAuthenticated && req.isAuthenticated();
       const refreshToken =
-        req.userContext.tokens && req.userContext.tokens.refresh_token;
+        req.userContext && req.userContext.tokens.refresh_token;
       if (!isAuthenticated && refreshToken) {
         const tokenSet = await context.client.refresh(refreshToken);
         const userinfo = req.userContext.userinfo;
@@ -248,7 +248,7 @@ oidcUtil.performRefreshToken = (context, options = {}) => {
       }
       return next();
     } catch (err) {
-      res.sendStatus(401);
+      res.sendStatus(500);
     }
   };
 };

@@ -50,6 +50,10 @@ nextApp.prepare().then(async () => {
       secret: process.env.SESSION_SECRET,
       resave: true,
       saveUninitialized: false,
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days long-lived token
+        secure: process.env.NODE_ENV == "production",
+      },
     })
   );
   app.use(oidc.router);
@@ -57,11 +61,16 @@ nextApp.prepare().then(async () => {
   //Handle Static Service-Worker.js
   app.use(
     "/service-worker.js",
-    express.static(path.join(__dirname, "/.next/service-worker.js"))
+    express.static(path.join(__dirname, "../.next", "service-worker.js"))
   );
 
   //Let Next Handle the rest of routes
-  app.get("/profile", oidc.ensureAuthenticated(), nextAppRequestHandler);
+  app.get(
+    "/profile",
+    oidc.performRefreshToken(),
+    oidc.ensureAuthenticated(),
+    nextAppRequestHandler
+  );
 
   app.get("/api/refresh", oidc.performRefreshToken(), (req, res) => {
     console.log(req.userContext);
