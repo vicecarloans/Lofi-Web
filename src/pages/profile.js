@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import ensureAuth from "utils/ensureAuth";
 import { useAuth } from "utils/useAuth";
 
-function Profile({ user }) {
-  useAuth(user);
+function Profile() {
+  useAuth();
   
   const profile = useSelector(profileSelector);
 
   return (
     <div>
-      <p>{JSON.stringify(profile)}</p>
+      <p>{JSON.stringify(profile || {})}</p>
     </div>
   );
 }

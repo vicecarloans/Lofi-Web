@@ -71,11 +71,24 @@ nextApp.prepare().then(async () => {
     nextAppRequestHandler
   );
 
-  app.get("/api/refresh", oidc.performRefreshToken(), (req, res) => {
+  /*
+   *  Retrieve Token for External API Calls
+   */
+  app.post("/api/token", oidc.performRefreshToken(), (req, res) => {
     if (req.userContext) {
       return res.json({ access_token: req.userContext.tokens.access_token });
     }
   });
+
+  /*
+   * Retrieve User Information
+   */
+  app.post("/api/me", oidc.performRefreshToken(), oidc.performUserInfo(), (req,res) => {
+    if(req.userContext){
+      return res.json({ userinfo: req.userContext.userinfo })
+    }
+  })
+
   app.all("*", nextAppRequestHandler);
 
   app.use((err, req, res, next) => {

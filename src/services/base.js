@@ -19,7 +19,7 @@ export function assignToken() {
   console.log("Configure Access Token");
   Axios.interceptors.request.use(
     async function (config) {
-      const data = await fetch("/api/refresh");
+      const data = await fetch("/api/token", {method: "POST"});
       const { access_token } = await data.json();
       config.headers["Authorization"] = `Bearer ${access_token}`;
       return config;

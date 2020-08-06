@@ -19,7 +19,7 @@ configureResponse();
 assignToken();
 
 function App({ Component, pageProps }) {
-  useAuth(pageProps.user);
+  useAuth();
   return (
     <>
       <Head>

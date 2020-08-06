@@ -17,7 +17,7 @@ const baseConfig = {
       };
     }
     return config;
-  },
+  }
 };
 
 const plugins = [

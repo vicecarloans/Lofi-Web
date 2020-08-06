@@ -61,7 +61,7 @@ export default function AppSider() {
     >
       <AppLogo />
       <Menu theme="dark" defaultSelectedKeys={["Popular Tracks"]} mode="inline">
-        {renderMenu(!!profile.name, navigateToRoute)}
+        {renderMenu(!!profile?.name, navigateToRoute)}
       </Menu>
     </CustomSider>
   );

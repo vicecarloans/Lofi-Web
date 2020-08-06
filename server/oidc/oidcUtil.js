@@ -84,6 +84,7 @@ oidcUtil.createClient = async (context) => {
     authorization_endpoint: "https://auth.huydam.guru/oauth2/lofi/v1/authorize",
     token_endpoint: "https://auth.huydam.guru/oauth2/lofi/v1/token",
     registration_endpoint: "https://auth.huydam.guru/oauth2/v1/clients",
+    userinfo_endpoint: "https://auth.huydam.guru/oauth2/lofi/v1/userinfo",
     jwks_uri: "https://auth.huydam.guru/oauth2/lofi/v1/keys",
     response_types_supported: [
       "code",
@@ -233,14 +234,12 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
 oidcUtil.performRefreshToken = (context, options = {}) => {
   return async (req, res, next) => {
     try {
-      const isAuthenticated =
-        req.isAuthenticated &&
-        req.isAuthenticated() &&
+      const isExpired =
         req.userContext &&
         Math.floor(Date.now() / 1000) > req.userContext.tokens.expires_at;
       const refreshToken = req.userContext && req.userContext.tokens.refresh_token;
 
-      if (!isAuthenticated && refreshToken) {
+      if (isExpired && refreshToken) {
         const tokenSet = await context.client.refresh(refreshToken);
         req.userContext.tokens = tokenSet
         req.login(req.userContext, (err) => {
@@ -256,3 +255,19 @@ oidcUtil.performRefreshToken = (context, options = {}) => {
     }
   };
 };
+
+oidcUtil.performUserInfo = (context, options = {}) => {
+  return async (req, res, next) => {
+    try{
+      const accessToken = req.userContext && req.userContext.tokens.access_token;
+      if(accessToken) {
+        const userInfo = await context.client.userinfo(accessToken);
+        req.userContext.userinfo = userInfo
+      }
+      return next();
+      
+    }catch(err){
+      res.sendStatus(401);
+    }
+  }
+}

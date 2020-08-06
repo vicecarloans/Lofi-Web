@@ -155,6 +155,14 @@ module.exports = class ExpressOIDC extends EventEmitter {
      */
     this.performRefreshToken = oidcUtil.performRefreshToken.bind(null, context);
 
+    /**
+     * Performs User Info Token
+     *
+     * @instance
+     * @function
+     * @memberof ExpressOIDC
+     */
+    this.performUserInfo = oidcUtil.performUserInfo.bind(null, context);
     // create client
     oidcUtil
       .createClient(context)
