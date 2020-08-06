@@ -67,13 +67,11 @@ nextApp.prepare().then(async () => {
   //Let Next Handle the rest of routes
   app.get(
     "/profile",
-    oidc.performRefreshToken(),
     oidc.ensureAuthenticated(),
     nextAppRequestHandler
   );
 
   app.get("/api/refresh", oidc.performRefreshToken(), (req, res) => {
-    console.log(req.userContext);
     if (req.userContext) {
       return res.json({ access_token: req.userContext.tokens.access_token });
     }

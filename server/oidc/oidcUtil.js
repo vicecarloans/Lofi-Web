@@ -233,19 +233,23 @@ oidcUtil.ensureAuthenticated = (context, options = {}) => {
 oidcUtil.performRefreshToken = (context, options = {}) => {
   return async (req, res, next) => {
     try {
-      const isAuthenticated = req.isAuthenticated && req.isAuthenticated();
-      const refreshToken =
-        req.userContext && req.userContext.tokens.refresh_token;
+      const isAuthenticated =
+        req.isAuthenticated &&
+        req.isAuthenticated() &&
+        req.userContext &&
+        Math.floor(Date.now() / 1000) > req.userContext.tokens.expires_at;
+      const refreshToken = req.userContext && req.userContext.tokens.refresh_token;
+
       if (!isAuthenticated && refreshToken) {
         const tokenSet = await context.client.refresh(refreshToken);
-        const userinfo = req.userContext.userinfo;
-        req.login({ userinfo, tokens: tokenSet }, (err) => {
+        req.userContext.tokens = tokenSet
+        req.login(req.userContext, (err) => {
           if (!err) {
             console.log("Refresh Complete");
           }
-          return next();
         });
       }
+
       return next();
     } catch (err) {
       res.sendStatus(500);

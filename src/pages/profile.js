@@ -6,7 +6,7 @@ import { useAuth } from "utils/useAuth";
 
 function Profile({ user }) {
   useAuth(user);
-
+  
   const profile = useSelector(profileSelector);
 
   return (
