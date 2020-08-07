@@ -78,6 +78,7 @@ nextApp.prepare().then(async () => {
     if (req.userContext) {
       return res.json({ access_token: req.userContext.tokens.access_token });
     }
+    return res.sendStatus(401)
   });
 
   /*
@@ -87,6 +88,7 @@ nextApp.prepare().then(async () => {
     if(req.userContext){
       return res.json({ userinfo: req.userContext.userinfo })
     }
+    return res.sendStatus(401)
   })
 
   app.all("*", nextAppRequestHandler);

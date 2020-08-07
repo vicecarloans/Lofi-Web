@@ -11,7 +11,7 @@ export const useAuth = () => {
       const lastUpdated = localStorage.getItem("profile_last_updated")
       const lastUpdatedDate = new Date(Number(lastUpdated || null))
       lastUpdatedDate.setMinutes(30);
-      if(!profile?.name || !lastUpdated || Date.now() >= lastUpdatedDate.getTime()){
+      if(!profile || !profile.name || !lastUpdated || Date.now() >= lastUpdatedDate.getTime()){
         dispatch(propagateUser());
         localStorage.setItem("profile_last_updated", Date.now());
       }
