@@ -91,6 +91,13 @@ nextApp.prepare().then(async () => {
     return res.sendStatus(401)
   })
 
+  /*
+   * Logout Route 
+   */
+  app.post('/logout', oidc.forceLogoutAndRevoke(), (req, res) => {
+    console.log("Logout Success")
+  })
+
   app.all("*", nextAppRequestHandler);
 
   app.use((err, req, res, next) => {

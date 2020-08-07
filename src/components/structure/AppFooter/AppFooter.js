@@ -1,15 +1,21 @@
 import React from "react";
-import { Layout } from "antd";
-import styled from "styled-components";
-import { BMC } from '../../common';
+import { Space } from "antd";
 
-const { Footer } = Layout;
-
-const CustomFooter = styled(Footer)`
-  text-align: right;
-`;
+import { AboutText, CustomFooter, AboutLink } from "./AppFooter.styles";
+import { BMC } from "../../common";
+import Link from "next/link";
 
 export default function AppFooter() {
-  return <CustomFooter><span>About</span><BMC /></CustomFooter>;
+  return (
+    <CustomFooter>
+      <Space>
+        <Link href="/about">
+          <AboutLink>
+            <AboutText>About</AboutText>
+          </AboutLink>
+        </Link>
+        <BMC />
+      </Space>
+    </CustomFooter>
+  );
 }
-
