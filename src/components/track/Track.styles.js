@@ -17,7 +17,8 @@ export const CardFront = styled.div`
     background-repeat: no-repeat;
     background-position: center center;
     filter: drop-shadow(3px 1px 4px #000000);
-    
+    z-index: 3;
+    position: relative;
 `;  
 
 export const CardHead = styled.div`
@@ -26,17 +27,16 @@ export const CardHead = styled.div`
         animation: ${discAnim} 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
     position:relative;
-    display: flex;
-    justify-content: center;
 `;
 
 export const TrackCover = styled.div`
     position:relative;
+    max-width: 200px;
 `;
 
 export const DiscDiv = styled.div`
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     left: 75px;
     top: 15px;
 

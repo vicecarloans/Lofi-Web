@@ -4,7 +4,7 @@ import {
     TrackResponseDefaultProps,
 } from "constants/track-response";
 import { Space } from "antd";
-import { Disc } from "../svg";
+import { DiscSVG } from "../svg";
 import {
     TrackCover,
     CardFront,
@@ -29,7 +29,7 @@ export default function TrackCard(props) {
         <TrackCover>
             <CardHead>
                 <DiscDiv>
-                    <Disc width={120} height={120} fill="#fff" />
+                    <DiscSVG width={120} height={120} fill="#fff" />
                 </DiscDiv>
                 <CardFront src={props.image?.path} />
             </CardHead>
@@ -43,7 +43,7 @@ export default function TrackCard(props) {
                     cursor: "pointer",
                 }}
             />
-            <Space direction="vertical">
+            <Space style={{width: "100%"}} direction="vertical">
                 <div></div>
                 <Title>
                     {props.title}{" "}

@@ -13,7 +13,8 @@
     "start": "NODE_ENV=production node server",
     "gcp-build": "yarn build",
     "svgr": "svgr -d src/components/svg public/svg/",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "test": "jest"
   },
   "dependencies": {
     "@okta/configuration-validation": "^0.4.3",
@@ -58,13 +59,19 @@
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
     "@storybook/addon-centered": "^5.3.19",
     "@storybook/addons": "^5.3.19",
     "@storybook/react": "^5.3.19",
     "@storybook/theming": "^5.3.19",
     "@svgr/cli": "^5.4.0",
+    "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.3",
+    "jest": "^26.3.0",
     "nodemon": "^2.0.3"
   }
 }
