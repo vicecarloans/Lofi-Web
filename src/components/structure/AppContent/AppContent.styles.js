@@ -4,7 +4,8 @@ import { Layout, Breadcrumb } from "antd";
 const { Content } = Layout;
 
 export const CustomContent = styled(Content)`
-  margin-left: 200px;
+  margin-left: 32px;
+  margin-right: 32px;
 `;
 
 export const SiteLayout = styled.div`

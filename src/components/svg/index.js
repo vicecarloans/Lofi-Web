@@ -1,2 +1,3 @@
-export { default as AlbumSVG } from "./Album";
-export { default as TrackSVG } from "./Track";
+export { default as Album } from './Album'
+export { default as Disc } from './Disc'
+export { default as Track } from "./Track"

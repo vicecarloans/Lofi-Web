@@ -54,7 +54,7 @@ export default function AppSider() {
   return (
     <CustomSider
       breakpoint="lg"
-      collapsedWidth="80"
+      collapsedWidth="0"
       collapsible
       collapsed={collapsed}
       onCollapse={setCollapsed}

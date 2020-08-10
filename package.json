@@ -12,7 +12,8 @@
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server",
     "gcp-build": "yarn build",
-    "svgr": "svgr -d src/components/svg public/svg/"
+    "svgr": "svgr -d src/components/svg public/svg/",
+    "storybook": "start-storybook"
   },
   "dependencies": {
     "@okta/configuration-validation": "^0.4.3",
@@ -40,6 +41,7 @@
     "next-redux-wrapper": "^6.0.2",
     "next-svgr": "^0.0.2",
     "node-fetch": "^2.6.0",
+    "normalizr": "^3.6.0",
     "openid-client": "^3.15.6",
     "passport": "^0.4.1",
     "react": "16.13.0",
@@ -55,7 +57,13 @@
     "uuid": "^8.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@storybook/addon-centered": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@storybook/theming": "^5.3.19",
     "@svgr/cli": "^5.4.0",
+    "babel-loader": "^8.1.0",
     "babel-plugin-styled-components": "^1.10.7",
     "nodemon": "^2.0.3"
   }
