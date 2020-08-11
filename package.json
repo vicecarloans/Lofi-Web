@@ -11,7 +11,7 @@
     "dev": "nodemon -w package.json -w yarn.lock -w server -w next.config.js -w .env",
     "build": "NODE_ENV=production next build",
     "start": "NODE_ENV=production node server",
-    "gcp-build": "yarn build",
+    "gcp-build": "rm -rf .storybook && yarn build",
     "svgr": "svgr -d src/components/svg public/svg/",
     "storybook": "start-storybook",
     "test": "jest"
