@@ -12,9 +12,9 @@ function* getRecentTrackSaga(){
         const {offset, limit} = yield select(recentTrackPaginationSelector)
         const payload = yield call(fetchRecentTrackService, offset, limit)
         
-        const {entities} = normalize(payload, trackCollectionSchema)
+        const {entities} = normalize(payload.items, trackCollectionSchema)
         // Populate Normalized Result of Tracks
-        yield put(fetchRecentTrackSuccess(entities.track))
+        yield put(fetchRecentTrackSuccess(entities.track, payload.count))
         // Populate Normalized Result of Images
         yield put(addImages(entities.image))
         // Populate Normalized Result of Uploads
@@ -29,9 +29,9 @@ function* getPopularTrackSaga(){
         const {offset, limit} = yield select(popularTrackPaginationSelector)
         const payload = yield call(fetchPopularTrackService, offset, limit)
         
-        const {entities} = normalize(payload, trackCollectionSchema)
+        const {entities} = normalize(payload.items, trackCollectionSchema)
         // Populate Normalized Result of Tracks
-        yield put(fetchPopularTrackSuccess(entities.track))
+        yield put(fetchPopularTrackSuccess(entities.track, payload.count))
         // Populate Normalized Result of Images
         yield put(addImages(entities.image))
         // Populate Normalized Result of Uploads

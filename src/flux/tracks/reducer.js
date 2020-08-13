@@ -15,12 +15,14 @@ const initialState = {
         data: {},
         offset: 0,
         limit: 6,
+        total: 0
     },
     recent: {
         isFetching: false,
         data: {},
         offset: 0,
         limit: 6,
+        total: 0
     },
     err: null,
 };
@@ -43,6 +45,7 @@ export default (state = initialState, { type, payload }) => {
                     ...state.recent,
                     isFetching: false,
                     data: { ...state.recent.data, ...payload.tracks },
+                    total: payload.total,
                 },
             };
         case FETCH_RECENT_TRACKS_FAILURE:
@@ -76,6 +79,7 @@ export default (state = initialState, { type, payload }) => {
                     ...state.popular,
                     isFetching: false,
                     data: { ...state.popular.data, ...payload.tracks },
+                    total: payload.total,
                 },
             };
         case FETCH_POPULAR_TRACKS_FAILURE:

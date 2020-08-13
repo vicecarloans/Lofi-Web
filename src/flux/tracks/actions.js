@@ -6,10 +6,11 @@ export const fetchRecentTracks = () => ({
 
 export const FETCH_RECENT_TRACKS_SUCCESS = '@TRACK/FETCH_RECENT_TRACKS_SUCCESS'
 
-export const fetchRecentTrackSuccess = (tracks) => ({
+export const fetchRecentTrackSuccess = (tracks, total) => ({
     type: FETCH_RECENT_TRACKS_SUCCESS,
     payload: {
-        tracks
+        tracks,
+        total
     }
 })
 
@@ -41,10 +42,11 @@ export const fetchPopularTracks = () => ({
 
 export const FETCH_POPULAR_TRACKS_SUCCESS = '@TRACK/FETCH_POPULAR_TRACKS_SUCCESS'
 
-export const fetchPopularTrackSuccess = (tracks) => ({
+export const fetchPopularTrackSuccess = (tracks, total) => ({
     type: FETCH_POPULAR_TRACKS_SUCCESS,
     payload: {
-        tracks
+        tracks,
+        total
     }
 })
 

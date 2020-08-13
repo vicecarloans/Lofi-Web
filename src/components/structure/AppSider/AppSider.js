@@ -50,7 +50,7 @@ export default function AppSider() {
   function navigateToRoute(route) {
     router.push(route);
   }
-
+  
   return (
     <CustomSider
       breakpoint="lg"
@@ -61,7 +61,7 @@ export default function AppSider() {
       width={220}
     >
       <AppLogo />
-      <Menu theme="dark"  mode="inline">
+      <Menu theme="dark" mode="inline">
         {renderMenu(!!profile?.name, navigateToRoute)}
       </Menu>
     </CustomSider>

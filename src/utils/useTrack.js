@@ -8,13 +8,14 @@ import {
     popularTrackSelector,
     fetchPopularTracks,
     popularTrackPaginationSelector,
+    fetchMorePopularTrack
 } from "flux/tracks";
 
 export const useRecentTrack = (max = 6) => {
     const dispatch = useDispatch();
 
     const data = useSelector(recentTrackSelector);
-    const { offset, limit } = useSelector(recentTrackPaginationSelector);
+    const { offset, limit, total } = useSelector(recentTrackPaginationSelector);
 
     function _getTracks() {
         dispatch(fetchRecentTracks());
@@ -27,14 +28,14 @@ export const useRecentTrack = (max = 6) => {
         _getTracks();
     }, [offset, limit]);
 
-    return [data, offset + 1, changePage];
+    return [data, offset + 1, total, changePage];
 };
 
 export const usePopularTrack = (max = 6) => {
     const dispatch = useDispatch();
 
     const data = useSelector(popularTrackSelector);
-    const { offset, limit } = useSelector(popularTrackPaginationSelector);
+    const { offset, limit, total } = useSelector(popularTrackPaginationSelector);
 
     function _getTracks() {
         dispatch(fetchPopularTracks());
@@ -47,5 +48,5 @@ export const usePopularTrack = (max = 6) => {
         _getTracks();
     }, [offset, limit]);
 
-    return [data, offset + 1, changePage];
+    return [data, offset + 1, total, changePage];
 };

@@ -10,7 +10,7 @@ import { uploadSelector } from "flux/uploads";
 
 
 export default function PopularPage() {
-    const [tracks, current_page, changePage] = usePopularTrack(6);
+    const [tracks, current_page, total, changePage] = usePopularTrack(6);
     const isFetching = useSelector(isFetchingPopularTrackSelector);
     const images = useSelector(imageSelector);
     const uploads = useSelector(uploadSelector);
@@ -24,7 +24,7 @@ export default function PopularPage() {
                     const image = images[tracks[id].image]
                     const upload = uploads[tracks[id].upload]
                     return (
-                        <List.Item>
+                        <List.Item style={{marginTop: 15}}>
                             <TrackCard {...tracks[id]} image={image} upload={upload} />
                         </List.Item>
                     );
@@ -36,6 +36,7 @@ export default function PopularPage() {
                     },
                     pageSize: 6,
                     defaultCurrent: current_page,
+                    total
                 }}
             />
         </>

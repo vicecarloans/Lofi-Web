@@ -8,7 +8,7 @@ import { imageSelector } from 'flux/images';
 import { uploadSelector } from 'flux/uploads';
 
 export default function RecentPage() {
-    const [tracks, current_page, changePage] = useRecentTrack(6);
+    const [tracks, current_page, total, changePage] = useRecentTrack(6);
     const isFetching = useSelector(isFetchingRecentTrackSelector);
     const images = useSelector(imageSelector);
     const uploads = useSelector(uploadSelector);
@@ -22,7 +22,7 @@ export default function RecentPage() {
                     const image = images[tracks[id].image]
                     const upload = uploads[tracks[id].upload]
                     return (
-                        <List.Item>
+                        <List.Item style={{marginTop: 15}}>
                             <TrackCard {...tracks[id]} image={image} upload={upload} />
                         </List.Item>
                     );
@@ -34,6 +34,7 @@ export default function RecentPage() {
                     },
                     pageSize: 6,
                     defaultCurrent: current_page,
+                    total
                 }}
             />
         </>
