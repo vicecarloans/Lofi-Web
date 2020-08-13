@@ -21,7 +21,7 @@ function renderMenu(isAuthenticated, navigateToRoute) {
     if (!sider.hasMore) {
       return (
         <Menu.Item
-          onClick={() => navigateToRoute("/profile")}
+          onClick={() => navigateToRoute(sider.to)}
           key={sider.key}
           icon={icon}
         >
@@ -58,9 +58,10 @@ export default function AppSider() {
       collapsible
       collapsed={collapsed}
       onCollapse={setCollapsed}
+      width={220}
     >
       <AppLogo />
-      <Menu theme="dark" defaultSelectedKeys={["Popular Tracks"]} mode="inline">
+      <Menu theme="dark"  mode="inline">
         {renderMenu(!!profile?.name, navigateToRoute)}
       </Menu>
     </CustomSider>

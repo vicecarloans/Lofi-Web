@@ -1,5 +1,5 @@
 import React from "react";
-import Icon, { FileAddOutlined, UploadOutlined } from "@ant-design/icons";
+import Icon, { FileAddOutlined, UploadOutlined, AppstoreAddOutlined } from "@ant-design/icons";
 import { TrackSVG, AlbumSVG } from "components/svg";
 import { PRIVATE_ZONE } from "./app";
 export default [
@@ -7,19 +7,29 @@ export default [
     icon: <Icon component={TrackSVG} />,
     name: "Popular Tracks",
     hasMore: false,
+    to: "/",
     key: "Popular Tracks",
   },
   {
     icon: <Icon component={AlbumSVG} />,
     name: "Popular Albums",
     hasMore: false,
+    to: "/albums",
     key: "Popular Albums",
   },
   {
     icon: <FileAddOutlined />,
-    name: "Recently Added",
+    name: "Recently Added Tracks",
     hasMore: false,
-    key: "Recently Added",
+    to: "/tracks",
+    key: "Recently Added Tracks",
+  },
+  {
+    icon: <AppstoreAddOutlined />,
+    name: "Recently Added Albums",
+    hasMore: false,
+    to: "/albums/recent",
+    key: "Recently Added Albums",
   },
   {
     icon: null,

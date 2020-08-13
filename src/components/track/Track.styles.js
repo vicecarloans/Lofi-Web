@@ -16,6 +16,7 @@ export const CardFront = styled.div`
     background-image: url(${props => props.src});
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: cover;
     filter: drop-shadow(3px 1px 4px #000000);
     z-index: 3;
     position: relative;
@@ -32,6 +33,7 @@ export const CardHead = styled.div`
 export const TrackCover = styled.div`
     position:relative;
     max-width: 200px;
+    margin: 0 auto;
 `;
 
 export const DiscDiv = styled.div`
@@ -46,7 +48,7 @@ export const Title = styled.span`
     font-family: "Barlow";
     font-style: normal;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 14px;
     line-height: 19px;
     color: #fff;
     text-align: center;
@@ -58,7 +60,7 @@ export const Author = styled.span`
     font-family: "Barlow";
     font-style: normal;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 19px;
     text-align: center;
     width: 100%;
