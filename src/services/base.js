@@ -21,7 +21,9 @@ export function assignToken() {
     async function (config) {
       const data = await fetch("/api/token", {method: "POST"});
       const { access_token } = await data.json();
-      config.headers["Authorization"] = `Bearer ${access_token}`;
+      if(access_token){
+        config.headers["Authorization"] = `Bearer ${access_token}`;
+      }
       return config;
     },
     function (error) {
