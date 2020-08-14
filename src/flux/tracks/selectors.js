@@ -15,3 +15,5 @@ export const isFetchingPopularTrackSelector = createSelector(popularTrackReducer
 export const popularTrackSelector = createSelector(popularTrackReducerSelector, track => track.data);
 
 export const popularTrackPaginationSelector = createSelector(popularTrackReducerSelector, track => ({offset: track.offset, limit: track.limit, total: track.total}))
+
+export const allTrackSelector = createSelector(recentTrackReducerSelector, popularTrackReducerSelector, (recent, popular) => ({...recent.data, ...popular.data}))

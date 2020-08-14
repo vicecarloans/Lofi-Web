@@ -28,6 +28,8 @@ export const TrackResponsePropTypes = {
     favourites: PropTypes.number.isRequired,
     upvotes: PropTypes.number.isRequired,
     downvotes: PropTypes.number.isRequired,
+    onTrackClick: PropTypes.func.isRequired,
+    
 };
 
 export const TrackResponseDefaultProps = {

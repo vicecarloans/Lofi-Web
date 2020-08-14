@@ -7,10 +7,12 @@ import { useSelector } from "react-redux";
 import { isFetchingPopularTrackSelector } from "flux/tracks";
 import { imageSelector } from "flux/images";
 import { uploadSelector } from "flux/uploads";
+import { usePlaylist } from "utils/usePlaylist";
 
 
 export default function PopularPage() {
     const [tracks, current_page, total, changePage] = usePopularTrack(6);
+    const [_, addToPlaylist] = usePlaylist();
     const isFetching = useSelector(isFetchingPopularTrackSelector);
     const images = useSelector(imageSelector);
     const uploads = useSelector(uploadSelector);
@@ -25,7 +27,7 @@ export default function PopularPage() {
                     const upload = uploads[tracks[id].upload]
                     return (
                         <List.Item style={{marginTop: 15}}>
-                            <TrackCard {...tracks[id]} image={image} upload={upload} />
+                            <TrackCard {...tracks[id]} image={image} upload={upload} onTrackClick={(trackId) => addToPlaylist([trackId])}/>
                         </List.Item>
                     );
                 }}

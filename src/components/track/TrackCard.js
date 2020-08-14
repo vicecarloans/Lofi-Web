@@ -27,7 +27,7 @@ import {
 export default function TrackCard(props) {
     return (
         <TrackCover>
-            <CardHead>
+            <CardHead onClick={() => props.onTrackClick(props.id)}>
                 <DiscDiv>
                     <DiscSVG width={120} height={120} fill="#fff" />
                 </DiscDiv>

@@ -2,6 +2,7 @@ import NextDocument, { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
 import { ServerStyleSheet as StyledComponentSheets } from "styled-components";
 
+
 class Document extends NextDocument {
   static async getInitialProps(ctx) {
     const styledComponentSheet = new StyledComponentSheets();
