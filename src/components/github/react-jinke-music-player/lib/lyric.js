@@ -1,175 +1,139 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
 // use by https://github.com/ustbhuangyi/lyric-parser
-var timeExp = /\[(\d{2,}):(\d{2})(?:\.(\d{2,3}))?]/g;
-var STATE_PAUSE = 0;
-var STATE_PLAYING = 1;
-var tagRegMap = {
+
+const timeExp = /\[(\d{2,}):(\d{2})(?:\.(\d{2,3}))?]/g
+
+const STATE_PAUSE = 0
+const STATE_PLAYING = 1
+
+const tagRegMap = {
   title: 'ti',
   artist: 'ar',
   album: 'al',
   offset: 'offset',
-  by: 'by'
-};
+  by: 'by',
+}
 
-var Lyric = /*#__PURE__*/function () {
-  function Lyric(lrc) {
-    var handler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+export default class Lyric {
+  constructor(lrc, handler = () => {}) {
+    this.lrc = lrc
+    this.tags = {}
+    this.lines = []
+    this.handler = handler
+    this.state = STATE_PAUSE
+    this.curLine = 0
 
-    _classCallCheck(this, Lyric);
-
-    this.lrc = lrc;
-    this.tags = {};
-    this.lines = [];
-    this.handler = handler;
-    this.state = STATE_PAUSE;
-    this.curLine = 0;
-
-    this._init();
+    this._init()
   }
 
-  _createClass(Lyric, [{
-    key: "_init",
-    value: function _init() {
-      this._initTag();
+  _init() {
+    this._initTag()
 
-      this._initLines();
+    this._initLines()
+  }
+
+  _initTag() {
+    for (let tag in tagRegMap) {
+      const matches = this.lrc.match(
+        new RegExp(`\\[${tagRegMap[tag]}:([^\\]]*)]`, 'i'),
+      )
+      this.tags[tag] = (matches && matches[1]) || ''
     }
-  }, {
-    key: "_initTag",
-    value: function _initTag() {
-      for (var tag in tagRegMap) {
-        var matches = this.lrc.match(new RegExp("\\[".concat(tagRegMap[tag], ":([^\\]]*)]"), 'i'));
-        this.tags[tag] = matches && matches[1] || '';
-      }
-    }
-  }, {
-    key: "_initLines",
-    value: function _initLines() {
-      var lines = this.lrc.split('\n');
-      var offset = parseInt(this.tags['offset']) || 0;
+  }
 
-      for (var i = 0; i < lines.length; i++) {
-        var line = lines[i];
-        var result = timeExp.exec(line);
-
-        if (result) {
-          var txt = line.replace(timeExp, '').trim();
-
-          if (txt) {
-            this.lines.push({
-              time: result[1] * 60 * 1000 + result[2] * 1000 + (result[3] || 0) * 10 + offset,
-              txt: txt
-            });
-          }
+  _initLines() {
+    const lines = this.lrc.split('\n')
+    const offset = parseInt(this.tags['offset']) || 0
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      let result = timeExp.exec(line)
+      if (result) {
+        const txt = line.replace(timeExp, '').trim()
+        if (txt) {
+          this.lines.push({
+            time:
+              result[1] * 60 * 1000 +
+              result[2] * 1000 +
+              (result[3] || 0) * 10 +
+              offset,
+            txt,
+          })
         }
       }
-
-      this.lines.sort(function (a, b) {
-        return a.time - b.time;
-      });
     }
-  }, {
-    key: "_findCurNum",
-    value: function _findCurNum(time) {
-      for (var i = 0; i < this.lines.length; i++) {
-        if (time <= this.lines[i].time) {
-          return i;
-        }
-      }
 
-      return this.lines.length - 1;
-    }
-  }, {
-    key: "_callHandler",
-    value: function _callHandler(i) {
-      if (i < 0) {
-        return;
-      }
+    this.lines.sort((a, b) => {
+      return a.time - b.time
+    })
+  }
 
-      this.handler({
-        txt: this.lines[i].txt,
-        lineNum: i
-      });
-    }
-  }, {
-    key: "_playRest",
-    value: function _playRest() {
-      var _this = this;
-
-      var line = this.lines[this.curNum];
-      var delay = line.time - (+new Date() - this.startStamp);
-      this.timer = setTimeout(function () {
-        _this._callHandler(_this.curNum++);
-
-        if (_this.curNum < _this.lines.length && _this.state === STATE_PLAYING) {
-          _this._playRest();
-        }
-      }, delay);
-    }
-  }, {
-    key: "play",
-    value: function play() {
-      var startTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-      var skipLast = arguments.length > 1 ? arguments[1] : undefined;
-
-      if (!this.lines.length) {
-        return;
-      }
-
-      this.state = STATE_PLAYING;
-      this.curNum = this._findCurNum(startTime);
-      this.startStamp = +new Date() - startTime;
-
-      if (!skipLast) {
-        this._callHandler(this.curNum - 1);
-      }
-
-      if (this.curNum < this.lines.length) {
-        clearTimeout(this.timer);
-
-        this._playRest();
+  _findCurNum(time) {
+    for (let i = 0; i < this.lines.length; i++) {
+      if (time <= this.lines[i].time) {
+        return i
       }
     }
-  }, {
-    key: "togglePlay",
-    value: function togglePlay() {
-      var now = +new Date();
+    return this.lines.length - 1
+  }
 
-      if (this.state === STATE_PLAYING) {
-        this.stop();
-        this.pauseStamp = now;
-      } else {
-        this.state = STATE_PLAYING;
-        this.play((this.pauseStamp || now) - (this.startStamp || now), true);
-        this.pauseStamp = 0;
+  _callHandler(i) {
+    if (i < 0) {
+      return
+    }
+    this.handler({
+      txt: this.lines[i].txt,
+      lineNum: i,
+    })
+  }
+
+  _playRest() {
+    let line = this.lines[this.curNum]
+    let delay = line.time - (+new Date() - this.startStamp)
+
+    this.timer = setTimeout(() => {
+      this._callHandler(this.curNum++)
+      if (this.curNum < this.lines.length && this.state === STATE_PLAYING) {
+        this._playRest()
       }
-    }
-  }, {
-    key: "stop",
-    value: function stop() {
-      this.state = STATE_PAUSE;
-      clearTimeout(this.timer);
-    }
-  }, {
-    key: "seek",
-    value: function seek(offset) {
-      this.play(offset);
-    }
-  }]);
+    }, delay)
+  }
 
-  return Lyric;
-}();
+  play(startTime = 0, skipLast) {
+    if (!this.lines.length) {
+      return
+    }
+    this.state = STATE_PLAYING
 
-exports["default"] = Lyric;
+    this.curNum = this._findCurNum(startTime)
+    this.startStamp = +new Date() - startTime
+
+    if (!skipLast) {
+      this._callHandler(this.curNum - 1)
+    }
+
+    if (this.curNum < this.lines.length) {
+      clearTimeout(this.timer)
+      this._playRest()
+    }
+  }
+
+  togglePlay() {
+    const now = +new Date()
+    if (this.state === STATE_PLAYING) {
+      this.stop()
+      this.pauseStamp = now
+    } else {
+      this.state = STATE_PLAYING
+      this.play((this.pauseStamp || now) - (this.startStamp || now), true)
+      this.pauseStamp = 0
+    }
+  }
+
+  stop() {
+    this.state = STATE_PAUSE
+    clearTimeout(this.timer)
+  }
+
+  seek(offset) {
+    this.play(offset)
+  }
+}

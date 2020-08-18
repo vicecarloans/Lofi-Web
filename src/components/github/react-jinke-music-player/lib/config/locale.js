@@ -1,11 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var _default = {
+export default {
   en_US: 'en_US',
-  zh_CN: 'zh_CN'
-};
-exports["default"] = _default;
+  zh_CN: 'zh_CN',
+}

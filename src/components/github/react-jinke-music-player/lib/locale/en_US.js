@@ -1,22 +1,12 @@
-"use strict";
+import React from 'react'
+import { FaHeadphonesIcon } from '../components/Icon'
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Icon = require("../components/Icon");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _default = {
+export default {
   playModeText: {
     order: 'Play in order',
     orderLoop: 'List loop',
     singleLoop: 'Single loop',
-    shufflePlay: 'Shuffle playback'
+    shufflePlay: 'Shuffle playback',
   },
   openText: 'Open',
   closeText: 'Close',
@@ -36,10 +26,7 @@ var _default = {
   darkThemeText: 'D',
   switchThemeText: 'Dark/Light mode',
   removeAudioListsText: 'Delete audio lists',
-  clickToDeleteText: function clickToDeleteText(name) {
-    return "Click to delete ".concat(name);
-  },
-  controllerTitle: /*#__PURE__*/_react["default"].createElement(_Icon.FaHeadphonesIcon, null),
-  emptyLyricText: 'No lyric'
-};
-exports["default"] = _default;
+  clickToDeleteText: (name) => `Click to delete ${name}`,
+  controllerTitle: <FaHeadphonesIcon />,
+  emptyLyricText: 'No lyric',
+}

@@ -18,6 +18,12 @@
     background-color: @bg-color;
   }
 
+  .rc-switch {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
   .lyric-btn {
     svg {
       font-size: 20px;
@@ -146,7 +152,7 @@
         height: 50px;
         border-radius: 50%;
         overflow: hidden;
-        background-size: cover;
+        background-size: 100%;
         background-repeat: no-repeat;
         box-shadow: 0 0 10px rgba(0, 34, 77, 0.05);
         cursor: pointer;
@@ -624,7 +630,7 @@
       position: fixed;
       cursor: pointer;
       background-repeat: no-repeat;
-      background-size: cover; // animation: imgRotate 15s linear infinite;
+      background-size: 100%; // animation: imgRotate 15s linear infinite;
       &:focus {
         outline: none;
       }

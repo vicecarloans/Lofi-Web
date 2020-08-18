@@ -5,5 +5,9 @@ export default {
     },
     glassBg: true,
     showDestroy: true,
-    showMediaSession: true
+    showMediaSession: true,
+    preload: true,
+    defaultVolume: 0.8,
+    autoHiddenCover: true,
+    spaceBar: true
 }

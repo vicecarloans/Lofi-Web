@@ -6,9 +6,11 @@ import { List } from 'antd';
 import { TrackCard } from 'components/track';
 import { imageSelector } from 'flux/images';
 import { uploadSelector } from 'flux/uploads';
+import { usePlaylist, usePlaylistActions } from 'utils/usePlaylist';
 
 export default function RecentPage() {
     const [tracks, current_page, total, changePage] = useRecentTrack(6);
+    const {addToPlaylist} = usePlaylistActions()
     const isFetching = useSelector(isFetchingRecentTrackSelector);
     const images = useSelector(imageSelector);
     const uploads = useSelector(uploadSelector);
@@ -23,7 +25,7 @@ export default function RecentPage() {
                     const upload = uploads[tracks[id].upload]
                     return (
                         <List.Item style={{marginTop: 15}}>
-                            <TrackCard {...tracks[id]} image={image} upload={upload} />
+                            <TrackCard {...tracks[id]} image={image} upload={upload} onTrackClick={(trackId) => addToPlaylist([trackId])} />
                         </List.Item>
                     );
                 }}

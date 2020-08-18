@@ -1,22 +1,12 @@
-"use strict";
+import React from 'react'
+import { FaHeadphonesIcon } from '../components/Icon'
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _Icon = require("../components/Icon");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var _default = {
+export default {
   playModeText: {
     order: '顺序播放',
     orderLoop: '列表循环',
     singleLoop: '单曲循环',
-    shufflePlay: '随机播放'
+    shufflePlay: '随机播放',
   },
   openText: '打开',
   closeText: '关闭',
@@ -36,10 +26,7 @@ var _default = {
   darkThemeText: '暗',
   switchThemeText: '暗黑/明亮 主题',
   removeAudioListsText: '清空播放列表',
-  clickToDeleteText: function clickToDeleteText(name) {
-    return "\u70B9\u51FB\u5220\u9664 ".concat(name);
-  },
-  controllerTitle: /*#__PURE__*/_react["default"].createElement(_Icon.FaHeadphonesIcon, null),
-  emptyLyricText: '暂无歌词'
-};
-exports["default"] = _default;
+  clickToDeleteText: (name) => `点击删除 ${name}`,
+  controllerTitle: <FaHeadphonesIcon />,
+  emptyLyricText: '暂无歌词',
+}

@@ -1,11 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.MODE = void 0;
-var MODE = {
+export const MODE = {
   FULL: 'full',
-  MINI: 'mini'
-};
-exports.MODE = MODE;
+  MINI: 'mini',
+}

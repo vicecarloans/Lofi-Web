@@ -18,11 +18,11 @@ import { AppLayout, ContentLayout } from "components/structure/AppLayout";
 import { AppContent } from "components/structure/AppContent";
 import { AppFooter } from "components/structure/AppFooter";
 import { useAuth } from "utils/useAuth";
-import { usePlaylist } from "utils/usePlaylist";
+import { usePlaylist, usePlaylistActions } from "utils/usePlaylist";
 import musicPlayerProps from "constants/music-player-conf";
 
 const ReactJkMusicPlayer = dynamic(
-    import("components/github/react-jinke-music-player/es"),
+    import("components/github/react-jinke-music-player/lib"),
     { ssr: false }
 );
 
@@ -31,7 +31,8 @@ assignToken();
 
 function App({ Component, pageProps }) {
     useAuth();
-    const [tracks, _, onPlaylistDestroy] = usePlaylist();
+    const [playlistConf, tracks] = usePlaylist();
+    const {onPlaylistDestroy, onVolumeChange, onPlayModeChange} = usePlaylistActions();
     return (
         <>
             <Head>
@@ -51,8 +52,11 @@ function App({ Component, pageProps }) {
                     {tracks.length > 0 && (
                         <ReactJkMusicPlayer
                             {...musicPlayerProps}
+                            {...playlistConf}
                             audioLists={tracks}
                             onDestroyed={onPlaylistDestroy}
+                            onAudioVolumeChange={onVolumeChange}
+                            onPlayModeChange={onPlayModeChange}
                         />
                     )}
                     <AppFooter />

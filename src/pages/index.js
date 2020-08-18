@@ -7,12 +7,12 @@ import { useSelector } from "react-redux";
 import { isFetchingPopularTrackSelector } from "flux/tracks";
 import { imageSelector } from "flux/images";
 import { uploadSelector } from "flux/uploads";
-import { usePlaylist } from "utils/usePlaylist";
+import { usePlaylist, usePlaylistActions } from "utils/usePlaylist";
 
 
 export default function PopularPage() {
     const [tracks, current_page, total, changePage] = usePopularTrack(6);
-    const [_, addToPlaylist] = usePlaylist();
+    const {addToPlaylist} = usePlaylistActions();
     const isFetching = useSelector(isFetchingPopularTrackSelector);
     const images = useSelector(imageSelector);
     const uploads = useSelector(uploadSelector);

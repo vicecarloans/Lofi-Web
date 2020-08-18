@@ -800,6 +800,7 @@
 .react-jinke-music-player-main svg {
   font-size: 24px;
   transition: color 350ms cubic-bezier(0.43, -0.1, 0.16, 1.1);
+  color: #FAAD14;
 }
 .react-jinke-music-player-main svg:hover,
 .react-jinke-music-player-main svg:active {
@@ -1268,6 +1269,13 @@
           animation: scale 5s linear infinite;
   cursor: pointer;
 }
+.react-jinke-music-player .music-player-backdrop{
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 98;
+}
 @media screen and (max-width: 767px) {
   .react-jinke-music-player .music-player-controller {
     width: 60px;
@@ -1291,6 +1299,7 @@
   transform: scale(1);
 }
 .react-jinke-music-player .music-player-controller .controller-title {
+  z-index: 99;
   font-size: 14px;
 }
 @media screen and (max-width: 767px) {
@@ -1309,7 +1318,7 @@
 .react-jinke-music-player .music-player-controller .music-player-controller-setting {
   width: 100%;
   height: 100%;
-  background: rgba(49, 194, 124, 0.3);
+  background: rgba(250, 173, 20, 0.3);
   transform: scale(0);
   border-radius: 50%;
   transition: all 0.4s cubic-bezier(0.43, -0.1, 0.16, 1.1);
@@ -1320,6 +1329,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 100;
 }
 .react-jinke-music-player .audio-circle-process-bar {
   stroke-width: 3px;
