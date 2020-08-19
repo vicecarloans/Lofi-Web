@@ -1275,6 +1275,7 @@
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 98;
+  border-radius: 50%;
 }
 @media screen and (max-width: 767px) {
   .react-jinke-music-player .music-player-controller {
@@ -1282,6 +1283,10 @@
     height: 60px;
   }
   .react-jinke-music-player .music-player-controller.music-player-playing::before {
+    width: 60px;
+    height: 60px;
+  }
+  .react-jinke-music-player .music-player-backdrop{
     width: 60px;
     height: 60px;
   }
