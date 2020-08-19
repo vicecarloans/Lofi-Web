@@ -32,7 +32,7 @@ export default function RecentPage() {
                 dataSource={Object.keys(tracks)}
                 pagination={{
                     onChange: (page) => {
-                        changePage(page, page * 6)
+                        changePage((page - 1) * 6 + 1, page * 6)
                     },
                     pageSize: 6,
                     defaultCurrent: current_page,
