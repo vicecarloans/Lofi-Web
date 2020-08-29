@@ -1,47 +1,42 @@
 import React from "react";
 import {
-    TrackResponsePropTypes,
-    TrackResponseDefaultProps,
-} from "constants/track-response";
-import { Space, notification } from "antd";
-import { DiscSVG } from "../svg";
+    AlbumResponsePropTypes,
+    AlbumResponseDefaultProps,
+} from "constants/album-response";
 import {
-    TrackCover,
-    CardFront,
-    DiscDiv,
+    AlbumCover,
     CardHead,
-    Title,
     Author,
+    Title,
     Rating,
     Upvote,
     Downvote,
+    CardFront,
     VoteNum,
-} from "./Track.styles";
-import {
-    StarOutlined,
-    LikeOutlined,
-    DislikeOutlined,
-} from "@ant-design/icons";
+    CardMiddle,
+    CardBack
+} from "./Album.styles";
+import { Space, notification } from "antd";
+import { StarOutlined, LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 
-const confirmTrackAdded = (name) => {
+const confirmAlbumAdded = (name) => {
     notification["success"]({
-        message: `Track - ${name} - is added`,
+        message: `Album - ${name} - is added`,
         placement: "bottomRight",
         duration: 1.5
     })
 }
 
-export default function TrackCard(props) {
+export default function AlbumCard(props) {
     return (
-        <TrackCover>
+        <AlbumCover>
             <CardHead onClick={() => {
-                props.onTrackClick()
-                confirmTrackAdded(props.title)
+                props.onAlbumClick()
+                confirmAlbumAdded(props.title)
             }}>
-                <DiscDiv>
-                    <DiscSVG width={120} height={120} fill="#fff" />
-                </DiscDiv>
-                <CardFront src={props.image?.path} />
+                <CardBack src={props.image ? props.tracks[1]?.image?.path : props.tracks[2]?.image?.path} />
+                <CardMiddle src={props.image ? props.tracks[0]?.image?.path : props.tracks[1]?.image?.path} />
+                <CardFront src={props.image ? props.image?.path : props.tracks[0]?.image?.path} />
             </CardHead>
             <StarOutlined
                 style={{
@@ -53,11 +48,9 @@ export default function TrackCard(props) {
                     cursor: "pointer",
                 }}
             />
-            <Space style={{width: "100%"}} direction="vertical">
+            <Space style={{ width: "100%" }} direction="vertical">
                 <div></div>
-                <Title>
-                    {props.title}
-                </Title>
+                <Title>{props.title}</Title>
                 <Author>{props.author}</Author>
                 <Rating>
                     <Upvote>
@@ -80,10 +73,9 @@ export default function TrackCard(props) {
                     </Downvote>
                 </Rating>
             </Space>
-        </TrackCover>
+        </AlbumCover>
     );
 }
 
-TrackCard.propTypes = TrackResponsePropTypes;
-
-TrackCard.defaultProps = TrackResponseDefaultProps;
+AlbumCard.propTypes = AlbumResponsePropTypes;
+AlbumCard.defaultProps = AlbumResponseDefaultProps;

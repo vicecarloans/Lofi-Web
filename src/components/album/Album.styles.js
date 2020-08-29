@@ -1,12 +1,21 @@
 import styled, {keyframes} from 'styled-components'  
 
 
-const discAnim = keyframes`
+const midCardAnim = keyframes`
     from {
-        transform: translate(0,0);
+        transform: translate(0px, 0px);
     }
     to {
-        transform: translate(15px, 0);
+        transform: translate(10px, -10px);
+    }
+`;
+
+const backCardAnim = keyframes`
+    from {
+        transform: translate(0px, 0px);
+    }
+    to {
+        transform: translate(5px, -5px);
     }
 `;
 
@@ -20,29 +29,39 @@ export const CardFront = styled.div`
     filter: drop-shadow(3px 1px 4px #000000);
     z-index: 3;
     position: relative;
+`;
+
+export const CardMiddle = styled(CardFront)`
+    z-index: 2;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+`;
+
+export const CardBack = styled(CardFront)`
+    z-index: 1;
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
 `;  
 
 export const CardHead = styled.div`
     cursor: pointer;
     &:hover div:nth-child(1){
-        animation: ${discAnim} 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: ${midCardAnim} 0.2s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+    &:hover div:nth-child(2){
+        animation: ${backCardAnim} 0.1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
     position:relative;
 `;
 
-export const TrackCover = styled.div`
+export const AlbumCover = styled.div`
     position:relative;
     max-width: 200px;
     margin: 0 auto;
 `;
 
-export const DiscDiv = styled.div`
-    position: absolute;
-    z-index: 1;
-    left: 75px;
-    top: 15px;
-
-`;
 
 export const Title = styled.span`
     font-family: "Barlow";

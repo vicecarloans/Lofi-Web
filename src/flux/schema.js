@@ -13,5 +13,8 @@ export const trackSchema = new schema.Entity('track', {
 export const trackCollectionSchema = [trackSchema]
 
 export const albumSchema = new schema.Entity("album", {
-    tracks: [trackSchema]
+    tracks: [trackSchema],
+    image: imageSchema
 })
+
+export const albumCollectionSchema = [albumSchema]

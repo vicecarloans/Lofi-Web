@@ -32,7 +32,12 @@ assignToken();
 function App({ Component, pageProps }) {
     useAuth();
     const [playlistConf, tracks] = usePlaylist();
-    const {onPlaylistDestroy, onVolumeChange, onPlayModeChange} = usePlaylistActions();
+    const {
+        onPlaylistDestroy,
+        onVolumeChange,
+        onPlayModeChange,
+        handleAudioRemoved,
+    } = usePlaylistActions();
     return (
         <>
             <Head>
@@ -49,6 +54,7 @@ function App({ Component, pageProps }) {
                     <AppContent>
                         <Component {...pageProps} />
                     </AppContent>
+
                     {tracks.length > 0 && (
                         <ReactJkMusicPlayer
                             {...musicPlayerProps}
@@ -57,6 +63,7 @@ function App({ Component, pageProps }) {
                             onDestroyed={onPlaylistDestroy}
                             onAudioVolumeChange={onVolumeChange}
                             onPlayModeChange={onPlayModeChange}
+                            onAudioRemoved={handleAudioRemoved}
                         />
                     )}
                     <AppFooter />

@@ -68,3 +68,13 @@ export const fetchMorePopularTrack = (offset, limit) => ({
         limit
     }
 })
+
+/* Add Tracks */
+
+export const ADD_TRACKS = '@TRACK/ADD_TRACKS'
+export const addTracks = (tracks) => ({
+    type: ADD_TRACKS,
+    payload: {
+        tracks
+    }
+})

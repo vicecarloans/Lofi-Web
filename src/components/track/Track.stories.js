@@ -5,5 +5,5 @@ import centered from '@storybook/addon-centered/react';
 
 export default { title: 'Track', decorators: [centered] };
 
-export const card = () => <TrackCard {...TrackResponseSample} />
+export const card = () => <TrackCard onTrackClick={() => {console.log("clicked")}} {...TrackResponseSample} />
 

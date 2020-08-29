@@ -4,6 +4,8 @@ export const recentTrackReducerSelector = (state) => state.tracks.recent;
 
 export const popularTrackReducerSelector = (state) => state.tracks.popular;
 
+export const allTrackReducerSelector = (state) => state.tracks.all;
+
 export const isFetchingRecentTrackSelector = createSelector(recentTrackReducerSelector, track => track.isFetching);
 
 export const recentTrackSelector = createSelector(recentTrackReducerSelector, track => track.data);
@@ -16,4 +18,4 @@ export const popularTrackSelector = createSelector(popularTrackReducerSelector, 
 
 export const popularTrackPaginationSelector = createSelector(popularTrackReducerSelector, track => ({offset: track.offset, limit: track.limit, total: track.total}))
 
-export const allTrackSelector = createSelector(recentTrackReducerSelector, popularTrackReducerSelector, (recent, popular) => ({...recent.data, ...popular.data}))
+export const allTrackSelector = createSelector(allTrackReducerSelector, all => all.data)

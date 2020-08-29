@@ -14,7 +14,7 @@ export default [
     icon: <Icon component={AlbumSVG} />,
     name: "Popular Albums",
     hasMore: false,
-    to: "/albums",
+    to: "/albums/popular",
     key: "Popular Albums",
   },
   {
@@ -28,7 +28,7 @@ export default [
     icon: <AppstoreAddOutlined />,
     name: "Recently Added Albums",
     hasMore: false,
-    to: "/albums/recent",
+    to: "/albums",
     key: "Recently Added Albums",
   },
   {

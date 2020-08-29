@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux"
-import { addTracksToPlaylist, audioSelector, destroyPlaylist, playlistConfSelector, volumeChange, playModeChange } from "flux/playlist"
+import { addTracksToPlaylist, audioSelector, destroyPlaylist, playlistConfSelector, volumeChange, playModeChange, removeAudio } from "flux/playlist"
 import { allTrackSelector } from "flux/tracks";
 import { imageSelector } from "flux/images";
 
@@ -42,5 +42,14 @@ export const usePlaylistActions = () => {
     function onPlayModeChange(mode){
         dispatch(playModeChange(mode))
     }
-    return {onVolumeChange, addToPlaylist, onPlaylistDestroy, onPlayModeChange}
+    function handleAudioRemoved(id){
+        if(!id) {
+            dispatch(destroyPlaylist())
+            return
+        }
+        dispatch(removeAudio(id))
+
+    }
+
+    return {onVolumeChange, addToPlaylist, onPlaylistDestroy, onPlayModeChange, handleAudioRemoved}
 }

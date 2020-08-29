@@ -30,3 +30,12 @@ export const playModeChange = (mode) => ({
         mode
     }
 })
+
+export const REMOVE_AUDIO = '@PLAYLIST/REMOVE_AUDIO'
+
+export const removeAudio = (id) => ({
+    type: REMOVE_AUDIO,
+    payload: {
+        trackId: id
+    }
+})

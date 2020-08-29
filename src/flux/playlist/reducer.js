@@ -1,4 +1,4 @@
-import { ADD_PLAYLIST, DESTROY_PLAYLIST, VOLUME_CHANGE, PLAYMODE_CHANGE } from "./actions"
+import { ADD_PLAYLIST, DESTROY_PLAYLIST, VOLUME_CHANGE, PLAYMODE_CHANGE, REMOVE_AUDIO } from "./actions"
 
 const initialState = {
     audio: [],
@@ -17,6 +17,8 @@ export default (state = initialState, { type, payload }) => {
             return {...state, volume: payload.vol}
         case PLAYMODE_CHANGE:
             return {...state, playmode: payload.mode}
+        case REMOVE_AUDIO:
+            return {...state, audio: state.audio.filter(a => a !== payload.trackId)}
         default:
             return state
     }
