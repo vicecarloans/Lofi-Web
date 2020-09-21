@@ -1,5 +1,5 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects'
-import { FETCH_RECENT_TRACKS, fetchRecentTrackFailure, fetchRecentTrackSuccess, fetchPopularTrackSuccess, FETCH_POPULAR_TRACKS } from './actions'
+import { FETCH_RECENT_TRACKS, fetchRecentTrackFailure, fetchRecentTrackSuccess, fetchPopularTrackSuccess, FETCH_POPULAR_TRACKS, fetchPopularTrackFailure } from './actions'
 import { fetchRecentTrackService, fetchPopularTrackService } from 'services/track';
 import { normalize } from 'normalizr';
 import { trackCollectionSchema } from 'flux/schema';

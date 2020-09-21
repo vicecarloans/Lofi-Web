@@ -209,13 +209,15 @@ oidcUtil.bootstrapPassportStrategy = (context) => {
 
 oidcUtil.ensureAuthenticated = (context, options = {}) => {
   return (req, res, next) => {
-    const isAuthenticated = req.isAuthenticated && req.isAuthenticated();
-    if (isAuthenticated) {
+    const isAuthenticated = req.isAuthenticated && req.isAuthenticated()
+    const isExpired = req.userContext &&
+        Math.floor(Date.now() / 1000) > req.userContext.tokens.expires_at;
+    if (isAuthenticated && !isExpired) {
       return next();
     }
     const negotiator = new Negotiator(req);
     if (negotiator.mediaType() === "text/html") {
-      if (!isAuthenticated) {
+      if (!isAuthenticated || isExpired) {
         if (req.session) {
           req.session.returnTo = req.originalUrl || req.url;
         }
@@ -251,7 +253,8 @@ oidcUtil.performRefreshToken = (context, options = {}) => {
 
       return next();
     } catch (err) {
-      res.sendStatus(500);
+      console.log(`Refresh failed: ${err}`)
+      res.status(401).send({message: "Unable to refresh user token"});
     }
   };
 };
@@ -267,7 +270,8 @@ oidcUtil.performUserInfo = (context, options = {}) => {
       return next();
       
     }catch(err){
-      res.sendStatus(401);
+      console.log(`User information failed: ${err}`)
+      res.status(401).send({message: "Unable to retrieve user info"});
     }
   }
 }
