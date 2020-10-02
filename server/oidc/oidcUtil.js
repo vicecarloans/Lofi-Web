@@ -254,7 +254,7 @@ oidcUtil.performRefreshToken = (context, options = {}) => {
       return next();
     } catch (err) {
       console.log(`Refresh failed: ${err}`)
-      res.status(401).send({message: "Unable to refresh user token"});
+      return res.status(401).send({message: "Unable to refresh user token"});
     }
   };
 };
@@ -263,6 +263,7 @@ oidcUtil.performUserInfo = (context, options = {}) => {
   return async (req, res, next) => {
     try{
       const accessToken = req.userContext && req.userContext.tokens.access_token;
+     
       if(accessToken) {
         const userInfo = await context.client.userinfo(accessToken);
         req.userContext.userinfo = userInfo
@@ -271,7 +272,7 @@ oidcUtil.performUserInfo = (context, options = {}) => {
       
     }catch(err){
       console.log(`User information failed: ${err}`)
-      res.status(401).send({message: "Unable to retrieve user info"});
+      return res.status(401).send({message: "Unable to retrieve user info"});
     }
   }
 }

@@ -1,4 +1,24 @@
 import Axios from "axios";
+import React from "react";
+import { Button, notification } from 'antd';
+
+const openNotification = () => {
+  const key = `open${Date.now()}`;
+  const btn = (
+    <Button type="primary" size="small" onClick={() => window.location.assign("/login")}>
+      Login Now
+    </Button>
+  );
+  notification.warn({
+    message: 'Hmmm it seems like your session has expired',
+    description:
+      'No Sweat! Click the button below to reconnect again!',
+    btn,
+    key,
+    onClose: close,
+    duration: 0,
+  });
+};
 
 export function configureResponse() {
   console.log("Configure Response...");
@@ -9,14 +29,16 @@ export function configureResponse() {
     },
     function (error) {
       console.error(`Oops...${error}`);
-      if (error.response.status === 401) location.reload();
+      if (error.response.status === 401){
+        openNotification();
+      };
       return error;
     }
   );
 }
 
 export function assignToken() {
-  console.log("Configure Access Token");
+  console.log("Configure Request...");
   Axios.interceptors.request.use(
     async function (config) {
       const data = await fetch("/api/token", {method: "POST"});

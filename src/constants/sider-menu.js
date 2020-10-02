@@ -40,7 +40,7 @@ export default [
       {
         icon: <UploadOutlined />,
         name: "Upload Track",
-
+        to: "/protected/upload",
         key: "Upload Track",
       },
     ],

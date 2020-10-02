@@ -2,8 +2,8 @@
   "short_name": "Lofi Web",
   "name": "Lofi-Web",
   "start_url": "/",
-  "background_color": "#3367D6",
+  "background_color": "#db9c9f",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#3367D6"
+  "theme_color": "#db9c9f"
 }

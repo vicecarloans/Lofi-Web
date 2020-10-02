@@ -66,7 +66,7 @@ nextApp.prepare().then(async () => {
 
   //Let Next Handle the rest of routes
   app.get(
-    "/profile",
+    "/protected/**",
     oidc.ensureAuthenticated(),
     nextAppRequestHandler
   );

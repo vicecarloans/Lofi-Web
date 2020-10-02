@@ -33,7 +33,7 @@ function renderMenu(isAuthenticated, navigateToRoute) {
     return (
       <SubMenu key={sider.key} icon={icon} title={sider.name}>
         {sider.subMenus.map((subMenu) => (
-          <Menu.Item key={subMenu.key} icon={subMenu.icon}>
+          <Menu.Item key={subMenu.key} icon={subMenu.icon} onClick={()=> navigateToRoute(subMenu.to)}>
             {subMenu.name}
           </Menu.Item>
         ))}
